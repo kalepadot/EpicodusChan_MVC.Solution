@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Edit Info:</h1>
+
+<form action="/Messages/Details/@(Model.MessageId)" method="post">
+  @* <label for="MessageId">Message ID:</label>
+  <input id="MessageId" name="MessageId" type="text" value="@(Model.MessageId)">
+
+  <label for="GroupId">Group ID:</label>
+  <input id="GroupId" name="GroupId" type="text" value="@(Model.GroupId)"> *@
+
+  <label for="Title">Message Title:</label>
+  <input id="Title" name="Title" type="text" value="@(Model.Title)">
+
+  <label for="User">User:</label>
+  <input id="User" name="User" type="text" value="@(Model.UserName)">
+
+  <label for="Entry">Message Body:</label>
+  <input id="Entry" name="Entry" type="text" value="@(Model.Entry)">
+
+  <label for="Date">Date:</label>
+  <input id="Date" name="Date" type="text" value="@(Model.Date)">
+
+  <button type="submit">Go!</button>
+</form>
+
+<a href="/Messages/Details/@(Model.MessageId)"><p>Return to Details</p></a>
+
