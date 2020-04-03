@@ -19,7 +19,7 @@ namespace EpicodusChan.Models
 
     public static List<Group> GetGroups()
   {
-    var apiCallTask = ApiHelper.GetAllGroups();
+    var apiCallTask = ApiHelper.GetAll("Groups");
     var result = apiCallTask.Result; 
 
     JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
@@ -41,7 +41,7 @@ namespace EpicodusChan.Models
       public static void Post(Group group)
     {
       string jsonGroup = JsonConvert.SerializeObject(group);
-      var apiCallTask = ApiHelper.PostGroup(jsonGroup);
+      var apiCallTask = ApiHelper.CreateGroup(jsonGroup);
     }
 
     public static void Put(Group group)

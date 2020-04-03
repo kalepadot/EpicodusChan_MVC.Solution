@@ -1,0 +1,35 @@
+@{
+    ViewData["Group"] = "Edit";
+}
+
+@model EpicodusChan.Models.Group
+
+<h1>Edit Group:</h1>
+
+@* <form action="/Groups/Details/@(Model.GroupId)" method="post">
+  <label for="GroupId">Group ID:</label>
+  <input id="GroupId" name="GroupId" type="text" value="@(Model.GroupId)">
+  <label for="GroupName">Group Name:</label>
+  <input id="GroupName" name="GroupName" type="text" value="@(Model.GroupName)">
+  <label for="Topic">Topic</label>
+  <input id="Topic" name="Topic" type="text" value="@(Model.Topic)">
+  <button type="submit">Go!</button>
+</form> *@
+
+@using(Html.BeginForm())
+{
+  <input type="hidden" name="groupId" value="@Model.GroupId">
+
+  <div class="form-group">
+    <p>Group Name:</p>
+    @Html.TextBoxFor(model => model.GroupName, new {@class="form-control"})
+  </div>
+
+  <div class="form-group">
+    <p>Topic:</p>
+    @Html.TextBoxFor(model => model.Topic, new {@class="form-control"})
+  </div>
+  <button type="submit" class="btn btn-dark btn-lg">Edit Group</button>
+}
+
+<a href="/Groups/Details/@(Model.GroupId)"><p>Return to Groups</p></a>

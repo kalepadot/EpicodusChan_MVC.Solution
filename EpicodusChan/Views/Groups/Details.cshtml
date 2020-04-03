@@ -1,0 +1,20 @@
+<h1>@Model.GroupName</h1>
+<h2>Topic: @Model.Topic</h2>
+<hr>
+
+@foreach( var message in Model.Messages)
+{
+  <h4> @Html.ActionLink($"{@message.Title}", "Details", "Messages", new { groupId = Model.GroupId, messageId = message.MessageId})</h4>
+  <div>
+    <p>
+      @message.Entry
+    </p>
+    <p>@message.UserName</p>
+  </div>
+}
+
+@Html.ActionLink("Add Message", "Create", "Messages", new {groupId = Model.GroupId}, new {@class="btn btn-dark btn-lg"})
+
+@Html.ActionLink("Edit", "Edit", new {id = Model.GroupId}, new {@class="btn btn-success btn-lg"})
+
+@Html.ActionLink("Delete this Group", "Delete", new {id = Model.GroupId}, new {@class="btn btn-danger btn-lg"})

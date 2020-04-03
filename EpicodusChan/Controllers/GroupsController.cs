@@ -15,18 +15,22 @@ namespace EpicodusChan.Controllers
       var allGroups = Group.GetGroups();
       return View(allGroups);
     }
-
-    [HttpPost]
-    public IActionResult Index(Group group)
-    {
-      Group.Post(group);
-      return RedirectToAction("Index");
-    }
-
     public IActionResult Details(int id)
     {
       var group = Group.GetDetails(id);
       return View(group);
+    }
+
+    public IActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(Group group)
+    {
+      Group.Post(group);
+      return RedirectToAction("Index");
     }
 
     public IActionResult Edit(int id)
@@ -36,14 +40,19 @@ namespace EpicodusChan.Controllers
     }
 
     [HttpPost]
-    public IActionResult Details(int id, Group group)
+    public IActionResult Edit(Group group)
     {
-      group.GroupId = id;
       Group.Put(group);
-      return RedirectToAction("Details", id);
+      return RedirectToAction("Details", "Groups", new { id = group.GroupId });
+    }
+    public IActionResult Delete(int id)
+    {
+      var thisGroup = Group.GetDetails(id);
+      return View(thisGroup);
     }
 
-    public IActionResult Delete(int id)
+    [HttpPost, ActionName("Delete")]
+    public IActionResult DeleteConfirmed(int id)
     {
       Group.Delete(id);
       return RedirectToAction("Index");

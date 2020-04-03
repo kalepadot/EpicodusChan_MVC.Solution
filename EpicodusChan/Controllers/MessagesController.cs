@@ -13,40 +13,53 @@ namespace EpicodusChan.Controllers
     public IActionResult Index()
     {
       var allMessages = Message.GetMessages();
-      return View(allMessages);
+      return View();
     }
 
-    [HttpPost]
-    public IActionResult Index(Message message)
+  // [HttpGet("/groups/{groupId}/messages/details/{messageId}")]
+    public IActionResult Details(int groupId, int messageId)
     {
-      Message.Post(message);
-      return RedirectToAction("Index");
-    }
-
-    public IActionResult Details(int id)
-    {
-      var message = Message.GetDetails(id);
+      var message = Message.GetDetails(groupId, messageId);
       return View(message);
     }
 
-    public IActionResult Edit(int id)
+    public IActionResult Create(int groupId)
     {
-      var message = Message.GetDetails(id);
+      ViewBag.groupId = groupId;
+      return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(int groupId, Message message)
+    {
+      // message.MessageId = Id;
+      Message.CreateMessage(groupId, message);
+      return RedirectToAction("Details", "Groups", new { id = groupId});
+    }
+    public IActionResult Edit(int groupId, int messageId)
+    {
+      ViewBag.GroupId = groupId;
+      var message = Message.GetDetails(groupId, messageId);
       return View(message);
     }
 
     [HttpPost]
-    public IActionResult Details(int id, Message message)
+    public ActionResult Edit(int groupId, Message message)
     {
-      message.MessageId = id;
-      Message.Put(message);
-      return RedirectToAction("Details", id);
+      Message.PutMessage(groupId, message);
+      return RedirectToAction("Index");
+    }
+    public IActionResult Delete(int groupId, int messageId)
+    {
+      var thisMessage = Message.GetDetails(groupId, messageId);
+      return View(thisMessage);
     }
 
-    public IActionResult Delete(int id)
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int groupId, int messageId)
     {
-      Message.Delete(id);
-      return RedirectToAction("Index");
+      Message.DeleteMessage(groupId, messageId);
+      return RedirectToAction("Details", "Groups", new { id = groupId });
     }
   }
 }

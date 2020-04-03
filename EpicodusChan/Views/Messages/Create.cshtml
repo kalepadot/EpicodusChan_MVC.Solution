@@ -1,0 +1,24 @@
+@model EpicodusChan.Models.Message
+
+<h4>Add a New Message</h4>
+@using (Html.BeginForm("Create", "Messages"))
+{
+   <input type="hidden" name="groupId" value="@ViewBag.GroupId">
+    <div class="form-group">
+        <p>UserName</p>
+        @Html.TextBoxFor(model => model.UserName, new {@class="form-control"})
+      </div>
+      <div class="form-group">
+        <p>Title</p>
+        @Html.TextBoxFor(model => model.Title, new {@class="form-control"})
+      </div>
+      <div class="form-group">
+        <p>Entry</p>
+        @Html.TextBoxFor(model => model.Entry, new {@class="form-control"})
+      </div>
+      <div class="form-group">
+        <p>Date</p>
+        @Html.TextBoxFor(model => model.Date, new {@class="form-control"})
+      </div>
+      <button type="submit" class="btn btn-info btn-block"> Add Entry </button>
+}

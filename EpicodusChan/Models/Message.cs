@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-// using System;
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
@@ -17,17 +17,17 @@ namespace EpicodusChan.Models
   
   public static List<Message> GetMessages()
   {
-    var apiCallTask = ApiHelper.GetAll();
-    var result = apiCallTask.Result; 
+    var apiCallTask = ApiHelper.GetAll("Messages");
+    var result = apiCallTask.Result;
 
     JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
     List<Message> messageList = JsonConvert.DeserializeObject<List<Message>>(jsonResponse.ToString());
 
-    return messageList; 
+    return messageList;
   }
-  public static Message GetDetails(int id)
+  public static Message GetDetails(int groupId, int messageId)
     {
-      var apiCallTask = ApiHelper.Get(id);
+      var apiCallTask = ApiHelper.GetMessage(groupId, messageId);
       var result = apiCallTask.Result;
 
       JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
@@ -35,22 +35,21 @@ namespace EpicodusChan.Models
 
       return message;
     }
-      public static void Post(Message message)
+      public static void CreateMessage(int groupId, Message message)
     {
       string jsonMessage = JsonConvert.SerializeObject(message);
-      var apiCallTask = ApiHelper.Post(jsonMessage);
+      var apiCallTask = ApiHelper.CreateMessage(groupId, jsonMessage);
     }
 
-    public static void Put(Message message)
+    public static void PutMessage(int groupId, Message message)
     {
       string jsonMessage = JsonConvert.SerializeObject(message);
-      var apiCallTask = ApiHelper.Put(message.MessageId, jsonMessage);
+      var apiCallTask = ApiHelper.PutMessage(groupId, message.MessageId, jsonMessage);
     }
 
-    public static void Delete(int id)
+    public static void DeleteMessage(int groupId, int messageid)
     {
-      var apiCallTask = ApiHelper.Delete(id);
+      var apiCallTask = ApiHelper.DeleteMessage(groupId, messageid);
     }
-
   }
 }

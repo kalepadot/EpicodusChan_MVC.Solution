@@ -1,0 +1,16 @@
+<h1>Create a New Group: </h1>
+
+@model EpicodusChan.Models.Group
+
+@using(Html.BeginForm())
+{
+  <div class="form-group">
+    <p>Group Name:</p>
+    @Html.TextBoxFor(model => model.GroupName, new {@class="form-control"})
+  </div>
+  <div class="form-group">
+    <p>Topic:</p>
+    @Html.TextBoxFor(model => model.Topic, new {@class="form-control"})
+  </div>
+  <button type="submit" class="btn btn-dark btn-lg">Add Group</button>
+}
